@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      //   function Form(props){
+      //     const [task,setTask]=React.useState("");
+      //     return(
+      //       <form onSubmit={(e)=>{
+      //         e.preventDefault();
+      //         props.addTask(task);
+      //         setTask("");
+      //       }}>
+      //         <input type="text" value={task} onChange={(e)=>setTask(e.target.value)}/>
+      //         <button type="submit">Add Task</button>
+      //       </form>
+      //     );
+      //   }
+
+      //   function MyApp() {
+      //     const [todo,setTodo]=React.useState([]);
+      //     return(
+      //         <>
+      //         <Form addTask={(task)=>{
+      //           setTodo([...todo,task]);
+      //         }}/>
+      //         <ul>
+      //           {todo.map((task,index)=>(
+      //             <li key={index}>{task}</li>
+      //           ))}
+      //         </ul>
+      //         </>
+      //     );
+      //   }
+
+      function Form({ todo, setTodo }) {
+        const [task, setTask] = React.useState("");
+        function addTodo(task) {
+          let newTodo = [...todo, task];
+          setTodo(newTodo);
+        }
+        return (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              addTodo(task);
+              setTask("");
+            }}
+          >
+            <input
+              type="text"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+            />
+            <button type="submit">Add Task</button>
+          </form>
+        );
+      }
+
+      function MyApp() {
+        const [todo, setTodo] = React.useState([]);
+        return (
+          <>
+            <Form todo={todo} setTodo={setTodo} />
+            <ul>
+              {todo.map((task, index) => (
+                <li key={index}>{task}</li>
+              ))}
+            </ul>
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>
